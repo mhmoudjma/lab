@@ -1,0 +1,27 @@
+حل لاب  Admin has the power 
+نفتح الكود المصدري لل الموقع 
+نجد ان المطور قد ترك تعليق يحوي اسم المستخدم وكلمة المرور التالية :
+user:support password:x34245323
+لاتنسى شكر المطور الذي وفر علينا عناء Brute Force 
+ندحل فنجد 
+"
+Hi support
+Your privilege is support , may be you need better privilages !!
+"
+اوك هذا رائع جدا 
+لنرى امكانية التلاعب بالكوكبز (Cookie Manipulation)
+ندخل الى inspect 
+ثم storage 
+ثم cookies 
+نرى الكوكير الخاصة ب role وكل ما عليك هو تغير القيمة الى admin 
+اعد تحميل الصفحة 
+يظهر العلم امامك 
+"hiadminyouhavethepower "
+=====================================================
+الان معلومات تقنية :
+السبب في هذه الثغرة هو 
+*الاعتماد على الكوكيز لتحديد الصلاحيات الحساسة
+===========================================================================
+## Disclaimer
+This write-up is for educational purposes only.  
+All testing was performed on a deliberately vulnerable lab.
