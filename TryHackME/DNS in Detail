@@ -1,0 +1,197 @@
+# DNS in Detail — TryHackMe Writeup
+
+**Room:** https://tryhackme.com/room/dnsindetail
+
+---
+
+## 📌 Overview
+
+هذا الملخص يشرح المفاهيم الأساسية لنظام DNS، هيكلية النطاقات، أنواع السجلات، وآلية عمل طلبات DNS، بالإضافة إلى أوامر الاستعلام والإجابات النهائية للمهام.
+
+---
+
+## 📚 Topics Covered
+
+* What Is DNS?
+* Domain Hierarchy
+* DNS Record Types
+* DNS Request Flow
+* DNS Queries
+* Answers
+
+---
+
+## 🌐 What Is DNS?
+
+نظام **DNS (Domain Name System)** هو المسؤول عن تحويل أسماء النطاقات المفهومة للبشر إلى عناوين IP تفهمها الأجهزة.
+
+بدلًا من حفظ:
+
+```
+104.26.10.229
+```
+
+يمكنك استخدام:
+
+```
+google.com
+```
+
+---
+
+## 🧱 Domain Hierarchy
+
+### 🔹 TLD — Top Level Domain
+
+هو الجزء الأخير من اسم النطاق.
+
+الأنواع:
+
+* **gTLD** → مثل `.com` و `.org`
+* **ccTLD** → مثل `.ar` و `.co.uk`
+
+---
+
+### 🔹 Second-Level Domain
+
+* الحد الأقصى للطول: **63 حرف**
+* المسموح:
+  `a-z` `0-9` `-`
+* الطول الأقصى للنطاق الكامل: **253 حرف**
+
+---
+
+### 🔹 Subdomains
+
+تقع على يسار النطاق الأساسي ويمكن إنشاء عدد غير محدود منها.
+
+مثال:
+
+```
+admin.platform.google.com
+```
+
+| الجزء            | النوع        |
+| ---------------- | ------------ |
+| admin / platform | Subdomain    |
+| google           | Second-Level |
+| com              | TLD          |
+
+---
+
+## 📑 DNS Record Types
+
+### A Record
+
+يربط النطاق بعنوان IPv4.
+
+---
+
+### AAAA Record
+
+يربط النطاق بعنوان IPv6.
+
+---
+
+### CNAME Record
+
+يشير إلى نطاق آخر بدل IP مباشر.
+
+---
+
+### MX Record
+
+يحدد خوادم البريد الخاصة بالنطاق ويحتوي قيمة **Priority** لترتيبها.
+
+---
+
+### TXT Record
+
+حقل نصي يستخدم لأغراض متعددة مثل:
+
+* التحقق من ملكية النطاق
+* إعدادات SPF
+* الحماية من التزوير
+
+---
+
+## 🔁 DNS Resolution Process
+
+خطوات حل اسم النطاق:
+
+1. فحص الكاش المحلي.
+2. إرسال الطلب إلى Recursive DNS Server.
+3. إن لم يوجد → Root Server.
+4. ثم → TLD Server.
+5. ثم → Authoritative Server.
+6. إعادة النتيجة + تخزينها حسب TTL.
+
+---
+
+## 💻 Run DNS Queries
+
+```bash
+nslookup website.com
+nslookup --type=CNAME shop.website.com
+nslookup --type=TXT website.com
+nslookup --type=MX website.com
+nslookup --type=A website.com
+```
+
+---
+
+## ✅ Answers
+
+### Task 1
+
+**DNS = Domain Name System**
+
+---
+
+### Task 2
+
+* Max subdomain length → **63**
+* Invalid char → **_**
+* Max domain length → **253**
+* `.co.uk` → **ccTLD**
+
+---
+
+### Task 3
+
+* Email record → **MX**
+* IPv6 record → **AAAA**
+
+---
+
+### Task 4
+
+* Cache duration field → **TTL**
+* ISP DNS type → **Recursive**
+* Records holder → **Authoritative**
+
+---
+
+### Task 5
+
+* CNAME → **shops.myshopify.com**
+* TXT →
+
+```
+THM{7012BBA60997F35A9516C2E16D2944FF}
+```
+
+* MX Priority → **30**
+* A Record IP → **10.10.10.10**
+
+---
+
+## 🧠 Notes
+
+* الكاش يقلل زمن الاستجابة ويخفف الضغط على الخوادم.
+* وجود أكثر من Name Server يوفر استمرارية الخدمة.
+* TTL يؤثر على سرعة انتشار تغييرات DNS.
+
+---
+
+**Author:** Your Cybersecurity Lab Notes
